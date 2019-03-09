@@ -37,7 +37,7 @@ const input4 = [[1, 0], 'BOP', [2, 1], [3, 5], [0, 1], [4, 9], [6, 10], [3, 6], 
 
 const inputs = [input1, input2, input3, input4];
 
-const combineBeepsBoops = function (input) {
+const combineBeepsBoops = (input) => {
   if (Array.isArray(input)) {
     return input.reduce((a, b) => a + b);
   }
@@ -47,15 +47,13 @@ const combineBeepsBoops = function (input) {
   return 0;
 };
 
-const decode = function (key) {
-  return (function extractKey(i) { return (i in key) ? key[i] : 0; });
-};
+const decode = (key) => (i) => (i in key) ? key[i] : '';
 
-const decodeMessage = function (input, key) {
-  return input
-        .map(combineBeepsBoops)
-        .map(decode(key))
-        .join('');
-};
+const decodeMessage = (input, key) => (
+  input
+    .map(combineBeepsBoops)
+    .map(decode(key))
+    .join('')
+);
 
 inputs.forEach(i => console.log(decodeMessage(i, decoderTable)));
